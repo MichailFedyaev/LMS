@@ -7,7 +7,8 @@
         "description": "что то",
         "preview": "",
         "course": 1,
-        "url": "https://www.youtube.com/watch?v=noKRZEeqNvk"
+        "url": "https://www.youtube.com/watch?v=noKRZEeqNvk",
+        "owner": 1
     }
 },
 {
@@ -18,7 +19,8 @@
         "description": "меткость",
         "preview": "",
         "course": 2,
-        "url": "https://www.youtube.com/watch?v=sZdWTeDypk0"
+        "url": "https://www.youtube.com/watch?v=sZdWTeDypk0",
+        "owner": 2
     }
 },
 {
@@ -29,7 +31,8 @@
         "description": "проходим криты",
         "preview": "",
         "course": 2,
-        "url": "https://www.youtube.com/watch?v=H01o5bl-41E"
+        "url": "https://www.youtube.com/watch?v=H01o5bl-41E",
+        "owner": 2
     }
 },
 {
@@ -40,7 +43,8 @@
         "description": "JAWNY - Honeypie Animation MV (Full Version by SeanWay Studio)",
         "preview": "",
         "course": 3,
-        "url": "https://www.youtube.com/watch?v=mcYLzu_1cNc"
+        "url": "https://www.youtube.com/watch?v=mcYLzu_1cNc",
+        "owner": 1
     }
 },
 {
@@ -51,7 +55,8 @@
         "description": "!!!ОБЯЗАТЕЛЬНО!!!",
         "preview": "",
         "course": 3,
-        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "owner": 1
     }
 }
 ]
