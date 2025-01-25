@@ -1,4 +1,4 @@
-from .models import Course, Lesson, CourseSubscription
+from .models import Course, Lesson, CourseSubscription, CoursePayment
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework import serializers
 from lms.validators import validate_url
@@ -29,3 +29,10 @@ class CourseSubscriptionSerializer(ModelSerializer):
     class Meta:
         model = CourseSubscription
         fields = ['course']
+
+
+class CoursePaymentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CoursePayment
+        fields = "__all__"

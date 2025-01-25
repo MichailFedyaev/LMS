@@ -3,10 +3,11 @@ from users.permissions import IsModer, IsOwner
 from django.shortcuts import get_object_or_404
 
 from .models import Course, Lesson, CourseSubscription
-from .serializers import CourseSerializer, LessonSerializer, CourseSubscriptionSerializer
+from .serializers import CourseSerializer, LessonSerializer, CourseSubscriptionSerializer, CoursePaymentSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from lms.pagination import LessonCoursesPaginator
 from rest_framework.response import Response
+from .services import create_session, create_price
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -98,3 +99,20 @@ class CourseSubscriptionApiView(views.APIView):
             CourseSubscription.objects.create(user=user, course=course)
             message = 'Подписка активирована'
         return Response({"message": message})
+
+
+class CoursePaymentCreateApiView(generics.CreateAPIView):
+    serializer_class = CoursePaymentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user=self.request.user)
+        course_id = self.request.data.get('course')
+        course = get_object_or_404(Course, id=course_id)
+        amount_usd = course.price
+        payment = serializer.save(amount=amount_usd)
+        price = create_price(amount_usd, course.name)
+        session_id, payment_link = create_session(price)
+        payment.session_id = session_id
+        payment.link = payment_link
+        payment.save()

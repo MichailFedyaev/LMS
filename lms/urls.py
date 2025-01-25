@@ -1,9 +1,8 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (CourseViewSet, LessonCreateApiView, LessonListApiView,
-                    LessonUpdateApiView, LessonDestroyApiView, LessonRetrieveApiView, CourseSubscriptionApiView)
-
-from rest_framework.mixins import CreateModelMixin
+                    LessonUpdateApiView, LessonDestroyApiView,
+                    LessonRetrieveApiView, CourseSubscriptionApiView, CoursePaymentCreateApiView)
 
 app_name = 'lms'
 
@@ -17,4 +16,5 @@ urlpatterns = [
     path('lesson/<int:pk>/update', LessonUpdateApiView.as_view(), name='lesson_update'),
     path('lesson/<int:pk>/delete', LessonDestroyApiView.as_view(), name='lesson_delete'),
     path('course/subscribe', CourseSubscriptionApiView.as_view(), name='course_subscribe'),
+    path('payment/', CoursePaymentCreateApiView.as_view(), name='payment'),
 ] + router.urls
