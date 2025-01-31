@@ -1,6 +1,7 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from datetime import timedelta
 
 
 load_dotenv(override=True)
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     'users',
     'drf_yasg',
     'corsheaders',
+    'django_celery_beat',
     'django_filters',
 ]
 
@@ -111,6 +113,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+# Internationalization
+# https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'Europe/Moscow'
+
+USE_I18N = True
+
+USE_TZ = True
 
 
 # Setting up CORS
@@ -127,17 +139,28 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = False
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
+# Настройки для Celery
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 
-LANGUAGE_CODE = 'en-us'
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 
-TIME_ZONE = 'Europe/Moscow'
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = TIME_ZONE
 
-USE_I18N = True
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
 
-USE_TZ = True
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
+CELERY_BEAT_SCHEDULE = {
+    'task-user-block': {
+        'task': 'users.tasks.user_block',
+        'schedule': timedelta(days=1),
+    },
+}
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.mail.ru"

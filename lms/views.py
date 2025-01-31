@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from lms.pagination import LessonCoursesPaginator
 from rest_framework.response import Response
 from .services import create_session, create_price
+from lms.tasks import send_mail_update_course
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -23,6 +24,11 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def perform_update(self, serializer):
+        course_id = self.kwargs.get('pk')
+        send_mail_update_course.delay(course_id)
+        serializer.save()
 
     def get_permissions(self):
         if self.action in ("list", "retrieve", "update", "partial_update"):

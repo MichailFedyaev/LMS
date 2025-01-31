@@ -1,12 +1,9 @@
 from django.contrib import admin
-from .models import Course, Lesson
+from .models import Course, Lesson, CourseSubscription, CoursePayment
+from django.apps import apps
 
 
-@admin.register(Course)
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ("name", "description")
+app = apps.get_app_config("lms")
 
-
-@admin.register(Lesson)
-class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'course', 'description')
+for model in app.models.values():
+    admin.site.register(model)
