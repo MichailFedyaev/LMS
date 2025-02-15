@@ -18,12 +18,11 @@ services:
       - redis
 
   celery:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: python:3.12-slim
     container_name: celery_worker
     command: >
-      sh -c "celery -A config worker --loglevel=info"
+      sh -c "pip install -r /app/requirements.txt &&
+             celery -A config worker --loglevel=info"
     env_file:
       - .env
     volumes:
@@ -32,12 +31,11 @@ services:
       - redis
 
   celery_beat:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: python:3.12-slim
     container_name: celery_beat
     command: >
-      sh -c "celery -A config beat --loglevel=info"
+      sh -c "pip install -r /app/requirements.txt &&
+             celery -A config beat --loglevel=info"
     env_file:
       - .env
     volumes:
