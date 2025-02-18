@@ -19,7 +19,7 @@ STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -180,6 +180,7 @@ SERVER_EMAIL = EMAIL_HOST_USER
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = 'media/'
 
