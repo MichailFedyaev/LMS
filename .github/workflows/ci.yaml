@@ -86,9 +86,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
+          ssh-add-cmd: "ssh-add - <<< '${{ secrets.SSH_KEY_PASSPHRASE }}'"
           add-options: "--encoding=ed25519"
 
       - name: Deploy to Server
