@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Course, Lesson, CourseSubscription
 from .serializers import CourseSerializer, LessonSerializer, CourseSubscriptionSerializer, CoursePaymentSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from lms.pagination import LessonCoursesPaginator
 from rest_framework.response import Response
 from .services import create_session, create_price

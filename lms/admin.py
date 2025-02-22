@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Course, Lesson, CourseSubscription, CoursePayment
 from django.apps import apps
 
 

@@ -8,5 +8,5 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 
 @admin.register(Payment)
-class CustomUserAdmin(admin.ModelAdmin):
+class PaymentAdmin(admin.ModelAdmin):
     list_display = ('user', 'amount', 'method')

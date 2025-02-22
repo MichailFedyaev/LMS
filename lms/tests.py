@@ -16,7 +16,7 @@ class LessonTestCase(APITestCase):
             url='https://github.com/MichailFedyaev/52',
             owner=self.user
         )
-        self.course_sub = CourseSubscription.objects.create(user = self.user, course=self.course)
+        self.course_sub = CourseSubscription.objects.create(user=self.user, course=self.course)
         self.client.force_authenticate(user=self.user)
 
     def test_list_lesson(self):

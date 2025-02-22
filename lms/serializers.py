@@ -25,7 +25,7 @@ class CourseSerializer(ModelSerializer):
     subscription = serializers.SerializerMethodField()
     lessons = LessonSerializer(many=True, read_only=True)
 
-    def get_subscription(self,course):
+    def get_subscription(self, course):
         currency_user = self.context.get('request', None).user
         return course.course_subscription.filter(user=currency_user).exists()
 
