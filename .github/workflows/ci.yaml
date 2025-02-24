@@ -92,7 +92,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}  # Имя пользователя для SSH
           key: ${{ secrets.SSH_KEY }}  # Приватный SSH-ключ
           passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}  # Пароль для SSH-ключа
-          port: 22  # Порт SSH (по умолчанию 22)
+          port: 80  # Порт SSH
           script: |
             echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
             cd /root/LMS
