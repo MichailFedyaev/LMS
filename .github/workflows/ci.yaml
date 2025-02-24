@@ -85,21 +85,18 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-
       - name: Deploy to Server
-        run: |
-          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}  # IP или домен вашего сервера
+          username: ${{ secrets.SSH_USER }}  # Имя пользователя для SSH
+          key: ${{ secrets.SSH_KEY }}  # Приватный SSH-ключ
+          passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}  # Пароль для SSH-ключа
+          port: 22  # Порт SSH (по умолчанию 22)
+          script: |
             echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-          
-            cd /root/LMS  # Убедитесь, что путь правильный!
-          
+            cd /root/LMS
             docker compose down
             docker compose pull
             docker compose up -d --remove-orphans
-          
             docker image prune -f
-          EOF
